@@ -22,12 +22,13 @@ fi
 
 SESSION_COOKIE=$(echo "$LOGIN_RES" | awk -F "'" '/SESSION_COOKIE/ { print $4 }')
 HAPI_STATUS=$(echo "$LOGIN_RES" | awk -F "[: ]" '/HAPI_STATUS/ { print $3 }') 
-TMPFILE=$(mktemp)
 
 if [ "$HAPI_STATUS" != 0 ]; then 
   echo "Login to $IP failed"
   exit 1
 fi
+
+TMPFILE=$(mktemp)
 
 curl --output "$TMPFILE" \
      --silent \
